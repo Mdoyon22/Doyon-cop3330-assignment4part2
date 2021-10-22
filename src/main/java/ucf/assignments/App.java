@@ -20,15 +20,13 @@ public class App extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        Parent root = null;
-
         try
         {
-            root = FXMLLoader.load(getClass().getResource("App.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("App.fxml"));
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("To do list!");
+            primaryStage.setTitle("TO-DO");
             primaryStage.show();
         }
 

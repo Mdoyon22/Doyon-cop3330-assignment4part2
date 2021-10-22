@@ -1,148 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.AppController">
-    <top>
-        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <items>
-                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveClicked" text="Save All" />
-                <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#btnLoadClicked" text="Load List" />
-            </items>
-        </ToolBar>
-    </top>
-    <center>
-        <SplitPane dividerPositions="0.29797979797979796" prefHeight="360.0" prefWidth="455.0" BorderPane.alignment="CENTER">
-            <items>
-                <AnchorPane prefHeight="360.0" prefWidth="226.0">
+<AnchorPane prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.Controller">
+    <children>
+        <AnchorPane layoutY="-5.0" prefHeight="75.0" prefWidth="850.0" style="-fx-background-color: #68f28d#68f28d;">
+            <children>
+                <Text layoutX="37.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To-Do" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Font" size="40.0" />
+                    </font>
+                </Text>
+            </children>
+        </AnchorPane>
+        <Button layoutX="773.0" layoutY="81.0" mnemonicParsing="false" onAction="#saveAllClicked" style="-fx-background-color: #2162ed#2162ed;" text="Save All" textFill="WHITE" />
+        <Button layoutX="747.0" layoutY="128.0" mnemonicParsing="false" onAction="#loadRecentClicked" style="-fx-background-color: #2162ed#2162ed;" text="Load Recent" textFill="WHITE" />
+        <Button layoutX="773.0" layoutY="176.0" mnemonicParsing="false" onAction="#loadAllClicked" style="-fx-background-color: #2162ed#2162ed;" text="Load All" textFill="WHITE" />
+        <AnchorPane fx:id="todoList_Pane" layoutX="24.0" layoutY="81.0" prefHeight="410.0" prefWidth="214.0" style="-fx-border-color: #000000;">
+            <children>
+                <Button layoutX="122.0" layoutY="325.0" mnemonicParsing="false" onAction="#addItemClicked" style="-fx-background-color: #2162ed#2162ed #2162ed#2162ed;" text="Add Item" textFill="WHITE" />
+                <AnchorPane fx:id="item_Pane" layoutX="16.0" layoutY="75.0" prefHeight="181.0" prefWidth="180.0" style="-fx-border-color: #7b7f87#7b7f87;">
                     <children>
-                        <VBox>
-                            <children>
-                                <ListView fx:id="listToDoList" editable="true" onMouseClicked="#listTitleClicked" prefHeight="322.0" prefWidth="200.0" />
-                                <HBox alignment="CENTER" prefHeight="34.0" prefWidth="200.0">
-                                    <children>
-                                        <Button fx:id="btnCreateNewList" mnemonicParsing="false" onAction="#btnCreateNewListClicked" text="Create New List" />
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
+                        <Button layoutX="11.0" layoutY="141.0" mnemonicParsing="false" onAction="#editItemClicked" style="-fx-background-color: #2162ed#2162ed;" text="Edit Item" textFill="WHITE" />
+                        <Button layoutX="90.0" layoutY="141.0" mnemonicParsing="false" onAction="#deleteItemClicked" style="-fx-background-color: #2162ed#2162ed;" text="Delete Item" textFill="WHITE" />
+                        <TextField fx:id="item_des" layoutX="11.0" layoutY="14.0" promptText="Description" />
+                        <TextField fx:id="item_date" layoutX="11.0" layoutY="60.0" promptText="Date (YYYY-MM-DD)" />
+                        <Button layoutX="94.0" layoutY="102.0" mnemonicParsing="false" onAction="#saveItemClicked" style="-fx-background-color: #2162ed#2162ed #2162ed#2162ed;" text="Save Item" textFill="WHITE" />
+                        <CheckBox layoutX="5.0" layoutY="105.0" mnemonicParsing="false" onAction="#itemFinishedSelected" text="Finished" />
                     </children>
                 </AnchorPane>
-                <AnchorPane>
-                    <children>
-                        <BorderPane prefHeight="359.0" prefWidth="422.0">
-                            <top>
-                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                    <items>
-                                        <Button fx:id="btnSaveList" mnemonicParsing="false" onAction="#btnSaveListClicked" text="Save List" />
-                                        <Button fx:id="btnDeleteList" mnemonicParsing="false" onAction="#btnDeleteListClicked" text="Delete List" />
-                                        <ComboBox fx:id="cmbFilter" prefWidth="150.0" promptText="Filter To Do Items" />
-                                    </items>
-                                </ToolBar>
-                            </top>
-                            <center>
-                                <TableView fx:id="tableView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                    <columns>
-                                        <TableColumn fx:id="colDescription" prefWidth="75.0" text="Description" />
-                                        <TableColumn fx:id="colDueDate" prefWidth="75.0" text="Due Date" />
-                                        <TableColumn fx:id="colCompleted" prefWidth="75.0" text="Completed" />
-                                    </columns>
-                                </TableView>
-                            </center>
-                            <right>
-                                <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <Button fx:id="btnDeleteToDoItem" mnemonicParsing="false" onAction="#btnDeleteToDoItemClicked" prefHeight="20.0" prefWidth="113.0" text="Delete To Do Item">
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" />
-                                            </VBox.margin>
-                                        </Button>
-                                        <Button fx:id="btnMarkComplete" mnemonicParsing="false" onAction="#btnMarkCompleteClicked" text="Mark Complete">
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                            <VBox.margin>
-                                                <Insets top="10.0" />
-                                            </VBox.margin>
-                                        </Button>
-                                    </children>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <BorderPane.margin>
-                                        <Insets left="5.0" right="5.0" />
-                                    </BorderPane.margin>
-                                </VBox>
-                            </right>
-                            <bottom>
-                                <VBox BorderPane.alignment="CENTER">
-                                    <children>
-                                        <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="422.0">
-                                            <children>
-                                                <Label text="Create a New To Do Item">
-                                                    <font>
-                                                        <Font name="System Bold" size="13.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </HBox>
-                                        <HBox prefHeight="25.0" prefWidth="417.0">
-                                            <children>
-                                                <TextField fx:id="txtNewDescription" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="135.0" promptText="Description">
-                                                    <padding>
-                                                        <Insets top="5.0" />
-                                                    </padding>
-                                                    <HBox.margin>
-                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                    </HBox.margin>
-                                                </TextField>
-                                                <DatePicker fx:id="dtNewDueDate" promptText="Due Date">
-                                                    <HBox.margin>
-                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                    </HBox.margin>
-                                                </DatePicker>
-                                                <CheckBox fx:id="chkbxNewCompleted" mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Completed">
-                                                    <HBox.margin>
-                                                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                                    </HBox.margin>
-                                                </CheckBox>
-                                            </children>
-                                        </HBox>
-                                        <HBox alignment="TOP_CENTER">
-                                            <children>
-                                                <Button fx:id="btnCreateNewItem" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewItemClicked" text="Create New Item" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                            </bottom>
-                        </BorderPane>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-    </center>
-    <bottom>
-        <Label alignment="BOTTOM_RIGHT" prefHeight="28.0" prefWidth="598.0" text="*Help: Double click an item to edit. Press Enter to save the edit." BorderPane.alignment="CENTER">
-            <font>
-                <Font name="System Italic" size="11.0" />
-            </font>
-        </Label>
-    </bottom>
-</BorderPane>
+                <Button layoutX="14.0" layoutY="365.0" mnemonicParsing="false" onAction="#saveListClicked" style="-fx-background-color: #2162ed#2162ed;" text="Save" textFill="WHITE" />
+                <Button layoutX="76.0" layoutY="365.0" mnemonicParsing="false" onAction="#editListClicked" style="-fx-background-color: #2162ed#2162ed;" text="Edit" textFill="WHITE" />
+                <Button layoutX="138.0" layoutY="365.0" mnemonicParsing="false" onAction="#deleteListClicked" style="-fx-background-color: #2162ed#2162ed;" text="Delete" textFill="WHITE" />
+                <TextField fx:id="todoList_title" layoutX="14.0" layoutY="26.0" promptText="Title">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+        <Button alignment="CENTER" defaultButton="true" layoutX="262.0" layoutY="81.0" mnemonicParsing="false" onAction="#addListClicked" style="-fx-background-color: #2162ed#2162ed;" text="Add ToDo List" textAlignment="CENTER" textFill="WHITE" />
+        <AnchorPane fx:id="displayOptions" layoutX="694.0" layoutY="334.0" prefHeight="152.0" prefWidth="142.0" style="-fx-border-color: #0000ff;">
+            <children>
+                <CheckBox layoutX="5.0" layoutY="69.0" mnemonicParsing="false" onAction="#allDisplaySelected" text="All" />
+                <CheckBox layoutX="5.0" layoutY="99.0" mnemonicParsing="false" onAction="#completeDisplaySelected" text="Completed" />
+                <CheckBox layoutX="5.0" layoutY="129.0" mnemonicParsing="false" onAction="#incompleteDisplaySelected" text="Incompleted" />
+                <Text layoutX="23.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List Display">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="displayToDoList" layoutX="16.0" layoutY="33.0" prefHeight="26.0" prefWidth="110.0" promptText="Enter ToDo Title" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

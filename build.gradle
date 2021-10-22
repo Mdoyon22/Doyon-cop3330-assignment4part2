@@ -26,5 +26,5 @@ javafx {
 }
 
 application {
-    mainClass = 'ucf.assignments.app'
+    mainClass = 'ucf.assignments.App'
 }
