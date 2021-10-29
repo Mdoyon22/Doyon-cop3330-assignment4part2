@@ -11,4 +11,5 @@ module Doyon.cop.assignment.main
     requires javafx.fxml;
 
     opens ucf.assignments;
+
 }
