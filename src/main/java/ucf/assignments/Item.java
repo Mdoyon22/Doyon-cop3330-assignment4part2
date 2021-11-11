@@ -6,61 +6,77 @@
 
 package ucf.assignments;
 //Package for date object
-import java.util.Date;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.CheckBox;
+import java.time.LocalDate;
+
 
 public class Item
 {
     //Private string variable for description
-    //Private string variable for date
-    //Private boolean variable for whether the item is finished
+    //SimpleStringProperty -> easier to output for javafx
+    private SimpleStringProperty description;
+
+    //Private String variable for date
+    private LocalDate dueDate;
+
+    //Private JavaFX CheckBox variable for whether the item is finished
+    //instead of a boolean use checkbox for each item, easier for javafx
+    private CheckBox complete;
 
     //Constructor
-    public Item(String des, String date)
+    public Item(String description, LocalDate dueDate)
     {
         //Takes in parameters for description and date
         //Assigns them accordingly
+        this.description = new SimpleStringProperty(description);
+        this.dueDate = dueDate;
+
+        //Also initializes a new checkbox for an item
+        this.complete = new CheckBox();
     }
 
-    private Date convertDate()
+
+    public LocalDate getDueDate()
     {
-        //Initialize new Date object
-        //Converts the string data of date into that Date object (for comparing)
-
-        //Returns converted Date object
-        return null; //setting null for now
+        //Returns the Date object
+        return dueDate;
     }
 
-    public Date getDate()
-    {
-        //Convert to Date object and return it
-        //Returns the Date object from convertDate()
-        return null; //setting null for now
-    }
 
     public String getDescription()
     {
-        //Return the description of an Item object
-        return null; //setting null for now
+        //Returns the description of an Item object
+        //.get() returns String, converting from SimpleStringProperty
+        return description.get();
     }
 
-    public void editDescription(String des)
+
+    public CheckBox getComplete()
+    {
+        //Returns the checkbox complete
+        return complete;
+    }
+
+
+    public void setDescription(String description)
     {
         //Updates this description to the new description from parameter
+        //Converts from String to SimpleStringProperty
+        this.description = new SimpleStringProperty(description);
     }
 
-    public void editDate(String date)
+
+    public void setDueDate(LocalDate dueDate)
     {
         //Updates this date to the new date from parameter
+        this.dueDate = dueDate;
     }
 
-    public void editFinished(Boolean Finish)
-    {
-        //Sets whether the item is finished or not
-    }
 
-    public Boolean checkFinished()
+    public void setComplete(CheckBox complete)
     {
-        //Returns the boolean value of Finished (for display options)
-        return false; //setting false for now
+        //Sets the complete to the checkbox parameter
+        this.complete = complete;
     }
 }
