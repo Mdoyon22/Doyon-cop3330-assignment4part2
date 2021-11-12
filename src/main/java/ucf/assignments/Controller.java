@@ -98,7 +98,7 @@ public class Controller implements Initializable
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
 
             {
-                dueDatePicker.setPromptText(pattern.toLowerCase());
+                dueDatePicker.setPromptText(pattern.toUpperCase());
             }
 
 

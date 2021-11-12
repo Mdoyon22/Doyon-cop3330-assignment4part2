@@ -26,7 +26,7 @@ public class App extends Application
     {
         try
         {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("App.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("ToDo.fxml"));
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);

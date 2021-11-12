@@ -5,106 +5,124 @@
 
 
 package ucf.assignments;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.control.CheckBox;
+import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+
 
 class ToDoListTest
 {
-    //Test whether editTitle of list works
+    //Global declaration of ToDoList object
+    private ToDoList list;
+
+    //Create a panel for testing the list and item object
+    //since used CheckBox (javafx) object by Item class
+    private JFXPanel panel = new JFXPanel();
+
     @Test
-    void editTitle_Test()
+    void addItem_test()
     {
-        //Create a temp ToDoList object
-        //Call editTitle() with 'newTitle' parameter
+        //Test addItem()
+        //Initialize ToDoList object
+        list = new ToDoList();
 
-        //To check whether the title was updated
-        //Call getTitle() of the temp ToDoList object
+        //Create an expected ArrayList for comparing
+        ArrayList<Item> expectedItems = new ArrayList<>();
 
-        //assert whether 'newTitle' is same as the return value from getTitle()
+        //Creating dummy data of item's objects
+        Item item1 = new Item("Cook", LocalDate.of(2021, Month.NOVEMBER, 11));
+        Item item2 = new Item("Go to gym", LocalDate.of(2021, Month.NOVEMBER, 18));
+        Item item3 = new Item("OOP Assignment", LocalDate.of(2021, Month.NOVEMBER, 15));
+
+        //Add the dummy data into ToDoList object using addItem() method
+        list.addItem(item1);
+        list.addItem(item2);
+        list.addItem(item3);
+
+        //Compare both by converting to arrays and check if they are equal
+        assertArrayEquals(expectedItems.toArray(), list.getAllItems().toArray());
     }
 
 
-    //Test whether add a new item to list works
     @Test
-    void addItem_Test()
+    void removeItem_test()
     {
-        //Create a temp ToDoList object - 'list'
-        //Also create a new temp Item object - 'item'
-        //Call addItem() with 'item' as parameter on temp 'list'
+        //Test removeItem()
+        //Initialize ToDoList object
+        list = new ToDoList();
 
-        //Call getAllItems() on temp 'list'
-        //Initialize the return arraylist of item from getAllItems() - 'allItems'
+        //Also create an expected ArrayList for comparing
+        ArrayList<Item> expectedItems = new ArrayList<>();
 
-        //Check whether the item has been added
-        //assert whether the new temp Item 'item' is in the 'allItems'
+        //Create dummy data of item's objects
+        Item item1 = new Item("Cook", LocalDate.of(2021, Month.NOVEMBER, 11));
+        Item item2 = new Item("Go to gym", LocalDate.of(2021, Month.NOVEMBER, 18));
+        Item item3 = new Item("OOP Assignment", LocalDate.of(2021, Month.NOVEMBER, 15));
+
+        //Add the dummy data into ToDoList object using addItem() method
+        list.addItem(item1);
+        list.addItem(item2);
+        list.addItem(item3);
+
+        //Also add into the expected ArrayList
+        expectedItems.add(item1);
+        expectedItems.add(item2);
+        expectedItems.add(item3);
+
+        //Call removeItem() on dummy item
+        list.removeItem(item3);
+
+        //Call remove on expected ArrayList on the same dummy item
+        expectedItems.remove(item3);
+
+        //Check if both ArrayList are equal by converting to arrays
+        assertArrayEquals(expectedItems.toArray(), list.getAllItems().toArray());
     }
 
 
-    //Test whether remove an item from list works
     @Test
-    void removeItem_Test()
+    void removeItem_Test_False()
     {
-        //Create a temp ToDoList object - 'list'
-        //Create a new temp Item object - 'item'
-        //Call addItem() with 'item' as parameter on temp 'list'
-        //Call removeItem() with 'item' as parameter
+        //Check if removeItem() works
 
-        //Call getAllItems() on temp 'list'
-        //Initialize the return arraylist of item from getAllItems() - 'allItems'
+        //Initialize ToDoList object
+        list = new ToDoList();
 
-        //Check whether the item has been removed
-        //assert whether the new temp Item 'item' is not in the 'allItems'
-    }
+        //Create an expected ArrayList for comparing
+        ArrayList<Item> expectedItems = new ArrayList<>();
 
+        //Create dummy data of item's objects
+        Item item1 = new Item("Cook", LocalDate.of(2021, Month.NOVEMBER, 11));
+        Item item2 = new Item("Go to gym", LocalDate.of(2021, Month.NOVEMBER, 18));
+        Item item3 = new Item("OOP Assignment", LocalDate.of(2021, Month.NOVEMBER, 15));
 
-    //Display options testing
+        //Add the dummy items into ToDoList object
+        list.addItem(item1);
+        list.addItem(item2);
+        list.addItem(item3);
 
-    //Test whether display (or return) of all items works
-    @Test
-    void getAllItems_Test()
-    {
-        //Create a temp ToDoList object - 'list'
-        //Create several Item objects - ArrayList<Item> 'items' (regardless of complete/incomplete)
-        //Loop through 'items' and call addItem() with each item as parameter on temp 'list'
-
-
-        //Check whether the get all item works
-        //Call getAllItems() on temp 'list'
-        //Initialize the return arraylist of item from getAllItems() - 'allItems'
-        //assert whether the 'items' arraylist is same as the 'allItems' arraylist
-    }
+        //Also add into expected ArrayList
+        expectedItems.add(item1);
+        expectedItems.add(item2);
+        expectedItems.add(item3);
 
 
-    //Test whether display (or return) of all incomplete items works
-    @Test
-    void inCompleteItems_Test()
-    {
-        //Create a temp ToDoList object - 'list'
-        //Create several Item objects - ArrayList<Item> 'items'
-        //Create some complete items and other incomplete items using Item's editFinished()
-        //Add the incomplete items to arraylist - 'tempIncomplete'
-        //Loop through 'items' and call addItem() with each item as parameter on temp 'list'
+        //Remove a random item from dummy data
+        list.removeItem(item1);
 
-        //Check whether the get all incomplete items works
-        //Call inCompleteItems() on temp 'list'
-        //Initialize the return arraylist of item from inCompleteItems() - 'incomplete'
-        //assert whether the 'tempIncomplete' arraylist is same as the 'incomplete' arraylist
-    }
+        //Remove a different item
+        expectedItems.remove(item3);
 
 
-    //Test whether display (or return) of all complete items works
-    @Test
-    void completeItems_Test()
-    {
-        //Create a temp ToDoList objects - 'list'
-        //Create several Item objects - ArrayList<Item> 'items'
-        //Create some complete items and other incomplete items using Item's editFinished()
-        //Add the complete items to arraylist - 'tempComplete'
-        //Loop through 'items' and call addItem() with each item as parameter on temp 'list'
+        //Should be false, since they both removed a different item
+        Boolean check = (list.getAllItems().equals(expectedItems));
 
-        //Check whether the get all complete items works
-        //Call completeItems() on temp 'list'
-        //Initialize the return arraylist of item from completeItems() - 'complete'
-        //assert whether the 'tempComplete' arraylist is same as the 'complete' array
+        //Check if it is false
+        assertFalse(check);
     }
 }
