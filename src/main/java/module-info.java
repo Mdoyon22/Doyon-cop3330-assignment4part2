@@ -9,6 +9,7 @@ module Doyon.cop.assignment.main
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.swing;
 
     opens ucf.assignments;
 
